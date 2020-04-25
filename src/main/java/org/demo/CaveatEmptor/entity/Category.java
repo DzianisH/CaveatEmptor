@@ -1,4 +1,4 @@
-package org.demo.CaveatEmptor.domain;
+package org.demo.CaveatEmptor.entity;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package org.demo.CaveatEmptor.domain;
+package org.demo.CaveatEmptor.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,14 +11,14 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class BankAccount extends BillingDetails {
+public class CreditCard extends BillingDetails {
     @NotEmpty
     @Column(nullable = false, unique = true)
-    private String account;
+    private String cardNumber;
     @NotEmpty
     @NotNull
-    private String bankName;
+    private String expMonth;
     @NotEmpty
     @NotNull
-    private String swift;
+    private String expYear;
 }
