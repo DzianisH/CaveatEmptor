@@ -2,10 +2,7 @@ package org.demo.CaveatEmptor.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,14 +11,16 @@ import java.util.Date;
 @Entity
 public class Bid {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @NotNull
     private BigDecimal amount;
     @NotNull
     private Date createdOn;
-    @OneToOne
+    @ManyToOne
+    @NotNull
     private User bidder;
-    @OneToOne
+    @ManyToOne
+    @NotNull
     private Item item;
 }

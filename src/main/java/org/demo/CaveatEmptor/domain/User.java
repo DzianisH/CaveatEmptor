@@ -2,35 +2,41 @@ package org.demo.CaveatEmptor.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @Data
 @Entity
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @NotEmpty
+    @Column(nullable = false, unique = true)
     private String username;
     @NotNull
+    @NotEmpty
     private String firstName;
     @NotNull
+    @NotEmpty
     private String lastName;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "owner")
     private BillingDetails billingDetails;
-    @NotNull
+    @Embedded
     private Address home;
-    @NotNull
+    @Embedded
     private Address billing;
-    @NotNull
+    @Embedded
     private Address shipping;
+
+    @OneToMany(mappedBy = "bidder")
+    private List<Bid> bidList;
+
+    @OneToMany(mappedBy = "seller")
+    private List<Item> itemList;
 
     public String getFullName() {
         var firstName = Optional.ofNullable(getFirstName())
